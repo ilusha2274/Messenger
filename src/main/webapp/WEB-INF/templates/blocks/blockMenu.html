@@ -23,27 +23,14 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-            <a href="/Messenger/profile">
-                <span th:if="${profile}" class="nav-link active"></span>
-                <span th:if="${!profile}" class="nav-link"></span>
-                <svg class="bi me-2" width="16" height="16"></svg>
-                Профиль
+            <a href="/Messenger/profile" class="nav-link" th:classappend="${profile ? 'active' : ''}">Профиль</a>
+        </li>
+        <li class="nav-item">
+            <a href="/Messenger/posts" class="nav-link" th:classappend="${posts ? 'active' : ''}">Сообщения</a>
             </a>
         </li>
-        <li>
-            <a href="/Messenger/posts">
-                <span th:if="${posts}" class="nav-link active"></span>
-                <span th:if="${!posts}" class="nav-link"></span>
-                <svg class="bi me-2" width="16" height="16"></svg>
-                Сообщения
-            </a>
-        </li>
-        <li>
-            <a href="/Messenger/settings">
-                <span th:if="${settings}" class="nav-link active"></span>
-                <span th:if="${!settings}" class="nav-link"></span>
-                <svg class="bi me-2" width="16" height="16"></svg>
-                Настройки
+        <li class="nav-item">
+            <a href="/Messenger/settings" class="nav-link" th:classappend="${settings ? 'active' : ''}">Настройки</a>
             </a>
         </li>
     </ul>
