@@ -16,21 +16,21 @@
 <body style = "background-color: #1e1d2f">
 <div th:fragment="blockMenu">
 <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
-    <a href="/Messenger" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
         <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
         <span class="fs-4">Messenger</span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-            <a href="/Messenger/profile" class="nav-link" th:classappend="${profile ? 'active' : ''}">Профиль</a>
+            <a href="/profile" class="nav-link" th:classappend="${profile ? 'active' : ''}">Профиль</a>
         </li>
         <li class="nav-item">
-            <a href="/Messenger/posts" class="nav-link" th:classappend="${posts ? 'active' : ''}">Сообщения</a>
+            <a href="/posts" class="nav-link" th:classappend="${posts ? 'active' : ''}">Сообщения</a>
             </a>
         </li>
         <li class="nav-item">
-            <a href="/Messenger/settings" class="nav-link" th:classappend="${settings ? 'active' : ''}">Настройки</a>
+            <a href="/settings" class="nav-link" th:classappend="${settings ? 'active' : ''}">Настройки</a>
             </a>
         </li>
     </ul>

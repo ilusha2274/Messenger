@@ -16,7 +16,7 @@
 <body style = "background-color: #1e1d2f">
 <div th:fragment="blockMenu">
 <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
-    <a href="/Messenger" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
         <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
         <span class="fs-4">Messenger</span>
     </a>
@@ -24,19 +24,19 @@
 
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-            <a href="/Messenger/profile" class="nav-link">
+            <a href="/profile" class="nav-link">
                 <svg class="bi me-2" width="16" height="16"></svg>
                 Профиль
             </a>
         </li>
         <li>
-            <a href="/Messenger/posts" class="nav-link active">
+            <a href="/posts" class="nav-link active">
                 <svg class="bi me-2" width="16" height="16"></svg>
                 Сообщения
             </a>
         </li>
         <li>
-            <a href="/Messenger/settings" class="nav-link">
+            <a href="/settings" class="nav-link">
                 <svg class="bi me-2" width="16" height="16"></svg>
                 Настройки
             </a>
