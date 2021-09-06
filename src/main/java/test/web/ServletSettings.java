@@ -19,8 +19,6 @@ public class ServletSettings extends HttpServlet{
         TemplateEngine templateEngine = (TemplateEngine) getServletContext().getAttribute("templateEngine");
 
         Context context = new Context();
-        context.setVariable("posts",false);
-        context.setVariable("profile",false);
         context.setVariable("settings",true);
 
         templateEngine.process("settings",context, resp.getWriter());

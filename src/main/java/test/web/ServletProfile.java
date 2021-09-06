@@ -19,9 +19,7 @@ public class ServletProfile extends HttpServlet{
         TemplateEngine templateEngine = (TemplateEngine) getServletContext().getAttribute("templateEngine");
 
         Context context = new Context();
-        context.setVariable("posts",false);
         context.setVariable("profile",true);
-        context.setVariable("settings",false);
 
         templateEngine.process("profile",context, resp.getWriter());
     }
