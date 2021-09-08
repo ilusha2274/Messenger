@@ -25,7 +25,7 @@
 
   <servlet>
     <servlet-name>ServletPosts</servlet-name>
-    <servlet-class>test.web.ServletBlockMenu</servlet-class>
+    <servlet-class>test.web.BlockMenuServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ServletPosts</servlet-name>
@@ -34,7 +34,7 @@
 
   <servlet>
     <servlet-name>ServletProfile</servlet-name>
-    <servlet-class>test.web.ServletBlockMenu</servlet-class>
+    <servlet-class>test.web.BlockMenuServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ServletProfile</servlet-name>
@@ -43,7 +43,7 @@
 
   <servlet>
     <servlet-name>ServletSettings</servlet-name>
-    <servlet-class>test.web.ServletBlockMenu</servlet-class>
+    <servlet-class>test.web.BlockMenuServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ServletSettings</servlet-name>
@@ -52,7 +52,7 @@
 
   <servlet>
     <servlet-name>ServletHome</servlet-name>
-    <servlet-class>test.web.ServletBlockMenu</servlet-class>
+    <servlet-class>test.web.BlockMenuServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ServletHome</servlet-name>
@@ -60,21 +60,21 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>ServletReg</servlet-name>
-    <servlet-class>test.web.ServletReg</servlet-class>
+    <servlet-name>ServletRegistration</servlet-name>
+    <servlet-class>test.web.RegistrationServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ServletReg</servlet-name>
-    <url-pattern>/reg</url-pattern>
+    <servlet-name>ServletRegistration</servlet-name>
+    <url-pattern>/registration</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>ServletLog</servlet-name>
-    <servlet-class>test.web.ServletLog</servlet-class>
+    <servlet-name>ServletLogIn</servlet-name>
+    <servlet-class>test.web.LogInServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ServletLog</servlet-name>
-    <url-pattern>/log</url-pattern>
+    <servlet-name>ServletLogIn</servlet-name>
+    <url-pattern>/logIn</url-pattern>
   </servlet-mapping>
 
 </web-app>

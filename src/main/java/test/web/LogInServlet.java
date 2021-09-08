@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ServletLog extends HttpServlet {
+public class LogInServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -17,6 +17,6 @@ public class ServletLog extends HttpServlet {
 
         Context context = new Context();
 
-        templateEngine.process("log",context, resp.getWriter());
+        templateEngine.process("logIn",context, resp.getWriter());
     }
 }

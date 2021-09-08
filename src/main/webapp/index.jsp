@@ -18,8 +18,8 @@
 
 				<div class="modal-body p-5 pt-0">
 					<form class="">
-						<button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit"><a href="/reg">Register</a></button>
-						<button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit"><a href="/log">Log in</a></button>
+						<button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit"><a href="/registration">Register</a></button>
+						<button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit"><a href="/logIn">Log in</a></button>
 					</form>
 				</div>
 			</div>
