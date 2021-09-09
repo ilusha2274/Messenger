@@ -2,6 +2,7 @@ package test.web;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
+import repository.UserRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,12 +24,18 @@ public class BlockMenuServlet extends HttpServlet{
         if (contextPath.equals(home)){
             Context context = new Context();
 
+            UserRepository LogInUser = (UserRepository)getServletContext().getAttribute("LogInUser");
+            context.setVariable("title",LogInUser.getName());
+
             templateEngine.process("home",context, resp.getWriter());
         }
 
         if (contextPath.equals(posts)){
             Context context = new Context();
             context.setVariable("posts",true);
+
+            UserRepository LogInUser = (UserRepository)getServletContext().getAttribute("LogInUser");
+            context.setVariable("title",LogInUser.getName());
 
             templateEngine.process("posts",context, resp.getWriter());
         }
@@ -37,12 +44,18 @@ public class BlockMenuServlet extends HttpServlet{
             Context context = new Context();
             context.setVariable("profile",true);
 
+            UserRepository LogInUser = (UserRepository)getServletContext().getAttribute("LogInUser");
+            context.setVariable("title",LogInUser.getName());;
+
             templateEngine.process("profile",context, resp.getWriter());
         }
 
         if (contextPath.equals(settings)){
             Context context = new Context();
             context.setVariable("settings",true);
+
+            UserRepository LogInUser = (UserRepository)getServletContext().getAttribute("LogInUser");
+            context.setVariable("title",LogInUser.getName());
 
             templateEngine.process("settings",context, resp.getWriter());
         }
