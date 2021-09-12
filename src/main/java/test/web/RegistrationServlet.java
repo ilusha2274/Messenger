@@ -2,26 +2,28 @@ package test.web;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-import repository.UserRepository;
+import repository.User;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class RegistrationServlet extends HttpServlet {
 
-    UserRepository user = new UserRepository("","","");
+    private ArrayList<User> userRepository;
+    private TemplateEngine templateEngine;
+
+    @Override
+    public void init() throws ServletException {
+        userRepository = (ArrayList<User>) getServletContext().getAttribute("userRepository");
+        templateEngine = (TemplateEngine) getServletContext().getAttribute("templateEngine");
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        TemplateEngine templateEngine = (TemplateEngine) getServletContext().getAttribute("templateEngine");
-
         Context context = new Context();
 
         templateEngine.process("registration",context, resp.getWriter());
@@ -35,13 +37,13 @@ public class RegistrationServlet extends HttpServlet {
         String password = req.getParameter("password");
         String twoPassword = req.getParameter("twoPassword");
 
-        if(registrationUser(email,name,password,twoPassword)){
-            UserRepository LogInUser = (UserRepository)getServletContext().getAttribute("LogInUser");
-            LogInUser.setName(name); LogInUser.setEmail(email); LogInUser.setPassword(password);
+        User user = registerUser(email,name,password,twoPassword);
+
+        if(user != null){
+            req.getSession().setAttribute("user", user);
             resp.sendRedirect("/home");
-            transitionHome(resp);
         }else {
-            transitionRegistration(req,resp);
+            resp.sendError(418);
         }
 
     }
@@ -56,44 +58,24 @@ public class RegistrationServlet extends HttpServlet {
     }
 
     private boolean checkEmail (String email){
-        boolean check = true;
-        ArrayList<UserRepository> UserRepositoryList = (ArrayList<UserRepository>) getServletContext().getAttribute("UserRepositoryList");
-        for(int i =0;i<UserRepositoryList.size();i++){
-            user = UserRepositoryList.get(i);
-            if(user.getEmail().equals(email)){
-                check = false;
+        for (User user : userRepository) {
+            if (user.getEmail().equals(email)) {
+                return false;
             }
         }
-        return check;
+        return true;
     }
 
-    private boolean registrationUser (String email,String name, String password,String twoPassword){
+    private User registerUser (String email,String name, String password,String twoPassword){
         if (checkPassword(password,twoPassword) && checkEmail(email)){
-            UserRepository NewUser = new UserRepository("","","");
-            ArrayList<UserRepository> UserRepositoryList = (ArrayList<UserRepository>) getServletContext().getAttribute("UserRepositoryList");
-            NewUser.setEmail(email);NewUser.setName(name);NewUser.setPassword(password);
-            UserRepositoryList.add(NewUser);
-            System.out.println(UserRepositoryList.size());
-            return true;
+            User newUser = new User(name,email,password);
+
+            userRepository.add(newUser);
+            System.out.println(userRepository.size());
+            return newUser;
         }
         else {
-            return false;
+            return null;
         }
-    }
-
-    private void transitionHome (HttpServletResponse resp) throws IOException {
-        TemplateEngine templateEngine = (TemplateEngine) getServletContext().getAttribute("templateEngine");
-
-        Context context = new Context();
-
-        templateEngine.process("home",context, resp.getWriter());
-    }
-
-    private void transitionRegistration (HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        TemplateEngine templateEngine = (TemplateEngine) getServletContext().getAttribute("templateEngine");
-
-        Context context = new Context();
-
-        templateEngine.process("registration",context, resp.getWriter());
     }
 }

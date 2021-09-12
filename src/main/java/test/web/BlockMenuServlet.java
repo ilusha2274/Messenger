@@ -2,10 +2,9 @@ package test.web;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-import repository.UserRepository;
+import repository.User;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,49 +12,54 @@ import java.io.IOException;
 
 public class BlockMenuServlet extends HttpServlet{
 
+    private TemplateEngine templateEngine;
+    public static final String HOME = "/home";
+    public static final String POSTS = "/posts";
+    public static final String PROFILE = "/profile";
+    public static final String SETTINGS = "/settings";
+
+    @Override
+    public void init() throws ServletException {
+        templateEngine = (TemplateEngine) getServletContext().getAttribute("templateEngine");
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        TemplateEngine templateEngine = (TemplateEngine) getServletContext().getAttribute("templateEngine");
-
         String contextPath = req.getRequestURI();
-        String home = "/home"; String posts = "/posts"; String profile = "/profile"; String settings = "/settings";
+        User user = (User) req.getSession().getAttribute("user");
 
-        if (contextPath.equals(home)){
+        if (HOME.equals(contextPath)){
             Context context = new Context();
 
-            UserRepository LogInUser = (UserRepository)getServletContext().getAttribute("LogInUser");
-            context.setVariable("title",LogInUser.getName());
+            context.setVariable("title",user.getName());
 
             templateEngine.process("home",context, resp.getWriter());
         }
 
-        if (contextPath.equals(posts)){
+        if (POSTS.equals(contextPath)){
             Context context = new Context();
             context.setVariable("posts",true);
 
-            UserRepository LogInUser = (UserRepository)getServletContext().getAttribute("LogInUser");
-            context.setVariable("title",LogInUser.getName());
+            context.setVariable("title",user.getName());
 
             templateEngine.process("posts",context, resp.getWriter());
         }
 
-        if (contextPath.equals(profile)){
+        if (PROFILE.equals(contextPath)){
             Context context = new Context();
             context.setVariable("profile",true);
 
-            UserRepository LogInUser = (UserRepository)getServletContext().getAttribute("LogInUser");
-            context.setVariable("title",LogInUser.getName());;
+            context.setVariable("title",user.getName());
 
             templateEngine.process("profile",context, resp.getWriter());
         }
 
-        if (contextPath.equals(settings)){
+        if (SETTINGS.equals(contextPath)){
             Context context = new Context();
             context.setVariable("settings",true);
 
-            UserRepository LogInUser = (UserRepository)getServletContext().getAttribute("LogInUser");
-            context.setVariable("title",LogInUser.getName());
+            context.setVariable("title",user.getName());
 
             templateEngine.process("settings",context, resp.getWriter());
         }

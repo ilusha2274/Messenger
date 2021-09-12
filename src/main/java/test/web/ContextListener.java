@@ -3,11 +3,10 @@ package test.web;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
-import repository.UserRepository;
+import repository.User;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
 import java.util.ArrayList;
 
 public class ContextListener implements javax.servlet.ServletContextListener {
@@ -17,16 +16,10 @@ public class ContextListener implements javax.servlet.ServletContextListener {
         ServletContext servletContext = sce.getServletContext();
 
         TemplateEngine templateEngine = createTemplateEngine(servletContext);
-
         servletContext.setAttribute("templateEngine", templateEngine);
 
-        ArrayList<UserRepository> UserRepositoryList = new ArrayList<>();
-
-        servletContext.setAttribute("UserRepositoryList", UserRepositoryList);
-
-        UserRepository LogInUser = new UserRepository("","","");
-
-        servletContext.setAttribute("LogInUser", LogInUser);
+        ArrayList<User> userRepository = new ArrayList<>();
+        servletContext.setAttribute("userRepository", userRepository);
     }
 
     private TemplateEngine createTemplateEngine(ServletContext servletContext){
