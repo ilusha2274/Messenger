@@ -19,6 +19,16 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
+  <filter>
+    <filter-name>AuthorizedUserFilter</filter-name>
+    <filter-class>filter.AuthorizedUserFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>AuthorizedUserFilter</filter-name>
+    <url-pattern>/home</url-pattern>
+  </filter-mapping>
+
   <listener>
     <listener-class>test.web.ContextListener</listener-class>
   </listener>
