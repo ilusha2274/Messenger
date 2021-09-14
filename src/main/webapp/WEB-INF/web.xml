@@ -30,6 +30,7 @@
     <url-pattern>/profile</url-pattern>
     <url-pattern>/settings</url-pattern>
     <url-pattern>/home</url-pattern>
+    <url-pattern>/exit</url-pattern>
   </filter-mapping>
 
   <listener>
@@ -46,6 +47,7 @@
     <url-pattern>/profile</url-pattern>
     <url-pattern>/settings</url-pattern>
     <url-pattern>/home</url-pattern>
+    <url-pattern>/exit</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -63,7 +65,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>ServletLogIn</servlet-name>
-    <url-pattern>/logIn</url-pattern>
+    <url-pattern>/login</url-pattern>
   </servlet-mapping>
 
 </web-app>

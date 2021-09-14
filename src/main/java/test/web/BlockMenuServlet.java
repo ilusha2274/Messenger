@@ -17,6 +17,7 @@ public class BlockMenuServlet extends HttpServlet{
     public static final String POSTS = "/posts";
     public static final String PROFILE = "/profile";
     public static final String SETTINGS = "/settings";
+    public static final String EXIT = "/exit";
 
     @Override
     public void init() throws ServletException {
@@ -62,6 +63,11 @@ public class BlockMenuServlet extends HttpServlet{
             context.setVariable("title",user.getName());
 
             templateEngine.process("settings",context, resp.getWriter());
+        }
+
+        if (EXIT.equals(contextPath)){
+            req.getSession().invalidate();
+            resp.sendRedirect("/login");
         }
     }
 }

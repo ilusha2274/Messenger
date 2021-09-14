@@ -26,7 +26,7 @@ public class LogInServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Context context = new Context();
 
-        templateEngine.process("logIn",context, resp.getWriter());
+        templateEngine.process("login",context, resp.getWriter());
     }
 
     @Override
