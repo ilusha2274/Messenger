@@ -1,4 +1,4 @@
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <title>Messenger</title>
@@ -36,6 +36,10 @@
                 <div class="form-floating mb-3">
                     <input type="password" name="twoPassword" class="form-control rounded-4" id="floatingPassword2" placeholder="Password">
                     <label for="floatingPassword2">Password again</label>
+                </div>
+
+                <div>
+                    <p style="color:#ff0000" th:text="${exception}"></p>
                 </div>
 
                 <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Sign up</button>

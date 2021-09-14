@@ -40,7 +40,9 @@ public class LogInServlet extends HttpServlet {
             req.getSession().setAttribute("user", user);
             resp.sendRedirect("/home");
         }else {
-            resp.sendError(418);
+            Context context = new Context();
+            context.setVariable("exception","Неверное имя пользователя или пароль");
+            templateEngine.process("login",context, resp.getWriter());
         }
 
     }

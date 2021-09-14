@@ -15,6 +15,7 @@ public class RegistrationServlet extends HttpServlet {
 
     private ArrayList<User> userRepository;
     private TemplateEngine templateEngine;
+    private String exception;
 
     @Override
     public void init() throws ServletException {
@@ -43,7 +44,9 @@ public class RegistrationServlet extends HttpServlet {
             req.getSession().setAttribute("user", user);
             resp.sendRedirect("/home");
         }else {
-            resp.sendError(418);
+            Context context = new Context();
+            context.setVariable("exception",exception);
+            templateEngine.process("registration",context, resp.getWriter());
         }
 
     }
@@ -53,6 +56,7 @@ public class RegistrationServlet extends HttpServlet {
             return true;
         }
         else {
+            exception ="Пароли не совпадают";
             return false;
         }
     }
@@ -60,6 +64,7 @@ public class RegistrationServlet extends HttpServlet {
     private boolean checkEmail (String email){
         for (User user : userRepository) {
             if (user.getEmail().equals(email)) {
+                exception ="email занят";
                 return false;
             }
         }
