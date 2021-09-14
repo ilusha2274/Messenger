@@ -26,6 +26,9 @@
 
   <filter-mapping>
     <filter-name>AuthorizedUserFilter</filter-name>
+    <url-pattern>/posts</url-pattern>
+    <url-pattern>/profile</url-pattern>
+    <url-pattern>/settings</url-pattern>
     <url-pattern>/home</url-pattern>
   </filter-mapping>
 
@@ -34,38 +37,14 @@
   </listener>
 
   <servlet>
-    <servlet-name>ServletPosts</servlet-name>
+    <servlet-name>BlockMenuServlet</servlet-name>
     <servlet-class>test.web.BlockMenuServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ServletPosts</servlet-name>
+    <servlet-name>BlockMenuServlet</servlet-name>
     <url-pattern>/posts</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>ServletProfile</servlet-name>
-    <servlet-class>test.web.BlockMenuServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ServletProfile</servlet-name>
     <url-pattern>/profile</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>ServletSettings</servlet-name>
-    <servlet-class>test.web.BlockMenuServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ServletSettings</servlet-name>
     <url-pattern>/settings</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>ServletHome</servlet-name>
-    <servlet-class>test.web.BlockMenuServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ServletHome</servlet-name>
     <url-pattern>/home</url-pattern>
   </servlet-mapping>
 

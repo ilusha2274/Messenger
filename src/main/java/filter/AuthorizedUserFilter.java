@@ -15,7 +15,6 @@ public class AuthorizedUserFilter extends HttpFilter {
         User user = (User) req.getSession().getAttribute("user");
         if (user == null){
             res.sendRedirect("/logIn");
-            chain.doFilter(req, res);
         }
         chain.doFilter(req, res);
     }
