@@ -14,7 +14,7 @@ public class AuthorizedUserFilter extends HttpFilter {
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         User user = (User) req.getSession().getAttribute("user");
         if (user == null){
-            res.sendRedirect("/logIn");
+            res.sendRedirect("/login");
         }
         chain.doFilter(req, res);
     }

@@ -2,7 +2,9 @@ package test.web;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
+import repository.CollectionUserRepository;
 import repository.User;
+import repository.UserRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,12 +15,12 @@ import java.util.ArrayList;
 
 public class LogInServlet extends HttpServlet {
 
-    private ArrayList<User> userRepository;
+    private UserRepository userRepository;
     private TemplateEngine templateEngine;
 
     @Override
     public void init() throws ServletException {
-        userRepository = (ArrayList<User>) getServletContext().getAttribute("userRepository");
+        userRepository = (CollectionUserRepository) getServletContext().getAttribute("collectionUserRepository");
         templateEngine = (TemplateEngine) getServletContext().getAttribute("templateEngine");
     }
 
@@ -34,28 +36,15 @@ public class LogInServlet extends HttpServlet {
 
         String email = req.getParameter("email");
         String password = req.getParameter("password");
+        User user = userRepository.logInUser(email,password);
 
-        User user = userRegistrationCheck(email,password);
         if (user != null){
             req.getSession().setAttribute("user", user);
             resp.sendRedirect("/home");
         }else {
             Context context = new Context();
-            context.setVariable("exception","Неверное имя пользователя или пароль");
+            context.setVariable("exception",userRepository.getStatus());
             templateEngine.process("login",context, resp.getWriter());
         }
-
-    }
-
-    private User userRegistrationCheck(String email, String password){
-        for (User checkedUser : userRepository) {
-            if (checkedUser.getEmail().equals(email)) {
-                if (checkedUser.getPassword().equals(password)) {
-                    System.out.println("good");
-                    return checkedUser;
-                }
-            }
-        }
-        return null;
     }
 }

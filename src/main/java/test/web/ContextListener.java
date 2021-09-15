@@ -3,7 +3,9 @@ package test.web;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import repository.CollectionUserRepository;
 import repository.User;
+import repository.UserRepository;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -18,8 +20,8 @@ public class ContextListener implements javax.servlet.ServletContextListener {
         TemplateEngine templateEngine = createTemplateEngine(servletContext);
         servletContext.setAttribute("templateEngine", templateEngine);
 
-        ArrayList<User> userRepository = new ArrayList<>();
-        servletContext.setAttribute("userRepository", userRepository);
+        CollectionUserRepository collectionUserRepository = new CollectionUserRepository();
+        servletContext.setAttribute("collectionUserRepository", collectionUserRepository);
     }
 
     private TemplateEngine createTemplateEngine(ServletContext servletContext){
