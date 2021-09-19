@@ -1,19 +1,22 @@
 package repository;
 
+import exception.PasswordMismatchException;
+import exception.WrongEmailException;
+import exception.WrongLoginPasswordException;
+
 import java.util.ArrayList;
 
 public class CollectionUserRepository implements UserRepository{
 
     private ArrayList<User> users = new ArrayList<>();
-    private String status;
 
     @Override
-    public boolean addUser(User user,String twoPassword) {
+    public User addUser(User user,String twoPassword) throws PasswordMismatchException, WrongEmailException {
         if (!(findEmailUser(user.getEmail())) && checkPassword(user.getPassword(),twoPassword)){
             users.add(user);
-            return true;
+            return user;
         }
-        return false;
+        return null;
     }
 
     @Override
@@ -22,44 +25,33 @@ public class CollectionUserRepository implements UserRepository{
     }
 
     @Override
-    public boolean findEmailUser(String email) {
+    public boolean findEmailUser(String email) throws WrongEmailException {
         for (User user : users) {
             if (user.getEmail().equals(email)) {
-                status = "email занят";
-                return true;
+                throw new WrongEmailException("email занят");
             }
         }
         return false;
     }
 
     @Override
-    public boolean checkPassword(String password, String twoPassword) {
+    public boolean checkPassword(String password, String twoPassword) throws PasswordMismatchException {
         if (password.equals(twoPassword)){
             return true;
         }else {
-            status = "Пароли не совпадают";
-            return false;
+            throw new PasswordMismatchException("Пароли не совпадают");
         }
     }
 
     @Override
-    public User logInUser(String email, String password) {
-        for (User user1 : users){
-            if(email.equals(user1.getEmail())){
-                if(password.equals(user1.getPassword())){
-                    return user1;
-                }else {
-                    status = "Неверное имя пользователя или пароль";
-                }
+    public User logInUser(String email, String password) throws WrongLoginPasswordException {
+        for (User user : users){
+            if(email.equals(user.getEmail())&& password.equals(user.getPassword())){
+                    return user;
             }else {
-                status = "Неверное имя пользователя или пароль";
+                throw new WrongLoginPasswordException("Неверное имя пользователя или пароль");
             }
         }
         return null;
-    }
-
-    @Override
-    public String getStatus() {
-        return status;
     }
 }

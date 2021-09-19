@@ -1,5 +1,7 @@
 package test.web;
 
+import exception.PasswordMismatchException;
+import exception.WrongEmailException;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import repository.CollectionUserRepository;
@@ -38,14 +40,19 @@ public class RegistrationServlet extends HttpServlet {
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         String twoPassword = req.getParameter("twoPassword");
-
         User newUser = new User(name,email,password);
-        if(userRepository.addUser(newUser,twoPassword)){
+
+        try {
+            userRepository.addUser(newUser,twoPassword);
             req.getSession().setAttribute("user", newUser);
             resp.sendRedirect("/home");
-        }else {
+        }catch (WrongEmailException e){
             Context context = new Context();
-            context.setVariable("exception",userRepository.getStatus());
+            context.setVariable("exception",e.getMessage());
+            templateEngine.process("registration",context, resp.getWriter());
+        }catch (PasswordMismatchException e){
+            Context context = new Context();
+            context.setVariable("exception",e.getMessage());
             templateEngine.process("registration",context, resp.getWriter());
         }
     }

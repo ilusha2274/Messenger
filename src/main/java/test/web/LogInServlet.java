@@ -1,5 +1,6 @@
 package test.web;
 
+import exception.WrongLoginPasswordException;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import repository.CollectionUserRepository;
@@ -36,14 +37,15 @@ public class LogInServlet extends HttpServlet {
 
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        User user = userRepository.logInUser(email,password);
 
-        if (user != null){
+        try {
+            User user = userRepository.logInUser(email,password);
             req.getSession().setAttribute("user", user);
             resp.sendRedirect("/home");
-        }else {
+
+        } catch (WrongLoginPasswordException e) {
             Context context = new Context();
-            context.setVariable("exception",userRepository.getStatus());
+            context.setVariable("exception",e.getMessage());
             templateEngine.process("login",context, resp.getWriter());
         }
     }
