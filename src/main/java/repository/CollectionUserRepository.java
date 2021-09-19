@@ -5,15 +5,19 @@ import exception.WrongEmailException;
 import exception.WrongLoginPasswordException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CollectionUserRepository implements UserRepository{
 
     private ArrayList<User> users = new ArrayList<>();
+    private Map<String, User> usersByEmail = new HashMap<>();
 
     @Override
     public User addUser(User user,String twoPassword) throws PasswordMismatchException, WrongEmailException {
         if (!(findEmailUser(user.getEmail())) && checkPassword(user.getPassword(),twoPassword)){
             users.add(user);
+            usersByEmail.put(user.getEmail(),user);
             return user;
         }
         return null;
@@ -26,10 +30,9 @@ public class CollectionUserRepository implements UserRepository{
 
     @Override
     public boolean findEmailUser(String email) throws WrongEmailException {
-        for (User user : users) {
-            if (user.getEmail().equals(email)) {
-                throw new WrongEmailException("email занят");
-            }
+
+        if (usersByEmail.containsKey(email)){
+            throw new WrongEmailException("email занят");
         }
         return false;
     }
@@ -44,14 +47,17 @@ public class CollectionUserRepository implements UserRepository{
     }
 
     @Override
+    public User findUserByEmail(String email) {
+        return usersByEmail.get(email);
+    }
+
+    @Override
     public User logInUser(String email, String password) throws WrongLoginPasswordException {
-        for (User user : users){
-            if(email.equals(user.getEmail())&& password.equals(user.getPassword())){
-                    return user;
-            }else {
-                throw new WrongLoginPasswordException("Неверное имя пользователя или пароль");
-            }
+        User user = findUserByEmail(email);
+        if (user != null && password.equals(user.getPassword())){
+            return user;
+        }else {
+            throw new WrongLoginPasswordException("Неверное имя пользователя или пароль");
         }
-        return null;
     }
 }

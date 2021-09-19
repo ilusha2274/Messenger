@@ -10,4 +10,5 @@ public interface UserRepository {
     boolean findEmailUser (String email) throws WrongEmailException;
     boolean checkPassword (String password, String twoPassword) throws PasswordMismatchException;
     User logInUser (String email, String password) throws WrongLoginPasswordException;
+    User findUserByEmail(String email);
 }
