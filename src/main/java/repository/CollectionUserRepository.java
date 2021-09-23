@@ -1,6 +1,7 @@
 package repository;
 
 import exception.PasswordMismatchException;
+import exception.UserNotFoundException;
 import exception.WrongEmailException;
 import exception.WrongLoginPasswordException;
 

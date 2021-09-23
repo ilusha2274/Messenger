@@ -3,6 +3,7 @@ package test.web;
 import exception.WrongLoginPasswordException;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
+import org.thymeleaf.context.WebContext;
 import repository.CollectionUserRepository;
 import repository.User;
 import repository.UserRepository;
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class LogInServlet extends HttpServlet {
 
@@ -45,6 +45,7 @@ public class LogInServlet extends HttpServlet {
 
         } catch (WrongLoginPasswordException e) {
             Context context = new Context();
+            context.setVariable("email",email);
             context.setVariable("exception",e.getMessage());
             templateEngine.process("login",context, resp.getWriter());
         }

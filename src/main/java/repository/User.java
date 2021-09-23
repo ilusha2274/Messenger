@@ -1,9 +1,15 @@
 package repository;
 
+import exception.UserNotFoundException;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     private String name;
     private String email;
     private String password;
+    private List<Chat> chats = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -30,5 +36,12 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public List<Chat> getChats() {
+        return chats;
+    }
+    public void setChats(Chat chat) {
+        chats.add(chat);
     }
 }

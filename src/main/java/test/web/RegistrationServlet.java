@@ -46,11 +46,7 @@ public class RegistrationServlet extends HttpServlet {
             userRepository.addUser(newUser,twoPassword);
             req.getSession().setAttribute("user", newUser);
             resp.sendRedirect("/home");
-        }catch (WrongEmailException e){
-            Context context = new Context();
-            context.setVariable("exception",e.getMessage());
-            templateEngine.process("registration",context, resp.getWriter());
-        }catch (PasswordMismatchException e){
+        }catch (WrongEmailException | PasswordMismatchException e){
             Context context = new Context();
             context.setVariable("exception",e.getMessage());
             templateEngine.process("registration",context, resp.getWriter());
