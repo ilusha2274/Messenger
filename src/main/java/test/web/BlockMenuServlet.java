@@ -2,6 +2,7 @@ package test.web;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
+import repository.Chat;
 import repository.User;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BlockMenuServlet extends HttpServlet{
 
@@ -41,6 +44,11 @@ public class BlockMenuServlet extends HttpServlet{
         if (POSTS.equals(contextPath)){
             Context context = new Context();
             context.setVariable("posts",true);
+            ArrayList<String> chats = new ArrayList<>();
+            for(int i =0;i<user.getChats().size();i++){
+                chats.add(user.getByNumberChat(i).getName());
+            }
+            context.setVariable("nameChat",chats);
 
             context.setVariable("title",user.getName());
 

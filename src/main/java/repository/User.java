@@ -41,7 +41,18 @@ public class User {
     public List<Chat> getChats() {
         return chats;
     }
-    public void setChats(Chat chat) {
+
+    public Chat getByNumberChat(int i){
+        return chats.get(i);
+    }
+
+    private void setChats(Chat chat) {
         chats.add(chat);
+    }
+
+    public void addChat(User user2,String nameChat) {
+        Chat chat = new Chat(nameChat);
+        setChats(chat);
+        user2.setChats(chat);
     }
 }

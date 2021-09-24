@@ -7,6 +7,10 @@ public class Chat {
     private List<Message> messages = new ArrayList<>();
     private String name;
 
+    public Chat(String name) {
+        this.name = name;
+    }
+
     public List<Message> getMessages() {
         return messages;
     }

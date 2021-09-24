@@ -9,62 +9,56 @@
 </head>
 <body style = "background-color: #1e1d2f">
 
-<div class="row">
-    <div class="col-lg-2">
-        <blockMenu th:insert="blocks/blockMenu :: blockMenu"></blockMenu>
-    </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2">
+            <blockMenu th:insert="blocks/blockMenu :: blockMenu"></blockMenu>
+        </div>
 
-    <div class="col-lg-3" style="background-color: #17212b">
-        <div class="headind_srch">
-            <div class="srch_bar">
-                <div class="stylish-input-group">
-                    <h4 style="color:#ffffff" class="text-left"> Recent</h4>
-                    <input type="text" class="search-bar" placeholder="Search" >
-                    <span class="input-group-addon">
-                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                </span>
-                </div>
-            </div>
-        </div>
-        <div class="inbox_chat">
-            <div class="chat_list active_chat">
-                <div class="chat_people">
-                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                    <div class="chat_ib">
-                        <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                        <p>Test, which is a new approach to have all solutions
-                            astrology under one roof.</p>
+        <!-- Users box-->
+        <div class="col-lg-3" style="background-color: #17212b">
+
+            <div class="chat-search-box">
+                <div class="input-group">
+                    <input class="form-control" placeholder="Search">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-info">
+                            <i class="fa fa-search"></i>
+                        </button>
                     </div>
                 </div>
             </div>
+
+            <tr th:each="nameChat : ${nameChat}">
+                <td th:insert="blocks/blockChat :: blockChat"></td>
+            </tr>
         </div>
-    </div>
-    <div class="col-lg-6" style="background-color: #0e1621">
-        <div class="mesgs">
-            <div class="msg_history">
-                <div class="incoming_msg">
-                    <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                    <div class="received_msg">
-                        <div class="received_withd_msg">
-                            <p>Test which is a new approach to have all
-                                solutions</p>
-                            <span class="time_date"> 11:01 AM    |    June 9</span></div>
+
+        <!-- Chat Box-->
+        <div class="col-lg-7" style="background-color: #17212b">
+            <div class="px-4 py-5 chat-box bg-white">
+
+                <!-- Sender Message-->
+                <div class="media w-50 mb-3"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg"
+                                                  alt="user" width="50" class="rounded-circle">
+                    <div class="media-body ml-3">
+                        <div class="bg-light rounded py-2 px-3 mb-2">
+                            <p class="text-small mb-0 text-muted">Test which is a new approach all solutions</p>
                         </div>
-                    </div>
-                <div class="outgoing_msg">
-                    <div class="sent_msg">
-                        <p>Test which is a new approach to have all
-                            solutions</p>
-                        <span class="time_date"> 11:01 AM    |    June 9</span> </div>
-                </div>
-                <div class="incoming_msg">
-                    <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                    <div class="received_msg">
-                        <div class="received_withd_msg">
-                            <p>Test, which is a new approach to have</p>
-                            <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
+                        <p class="small text-muted">12:00 PM | Aug 13</p>
                     </div>
                 </div>
+
+                <!-- Reciever Message-->
+                <div class="media w-50 ml-auto mb-3">
+                    <div class="media-body">
+                        <div class="bg-primary rounded py-2 px-3 mb-2">
+                            <p class="text-small mb-0 text-white">Test which is a new approach to have all solutions</p>
+                        </div>
+                        <p class="small text-muted">12:00 PM | Aug 13</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

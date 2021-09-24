@@ -42,7 +42,13 @@ public class RegistrationServlet extends HttpServlet {
         String twoPassword = req.getParameter("twoPassword");
         User newUser = new User(name,email,password);
 
+
+        //User newUser2 = new User("111","111","111");
+        //newUser.addChat(newUser2,"123");
+        //newUser.addChat(newUser2,"124");
+
         try {
+            //userRepository.addUser(newUser2,"111");
             userRepository.addUser(newUser,twoPassword);
             req.getSession().setAttribute("user", newUser);
             resp.sendRedirect("/home");
