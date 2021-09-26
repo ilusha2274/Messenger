@@ -21,6 +21,8 @@ public class BlockMenuServlet extends HttpServlet{
     public static final String PROFILE = "/profile";
     public static final String SETTINGS = "/settings";
     public static final String EXIT = "/exit";
+    public static final String NEWMESSAGE = "/newmessage";
+
 
     @Override
     public void init() throws ServletException {
@@ -77,5 +79,7 @@ public class BlockMenuServlet extends HttpServlet{
             req.getSession().invalidate();
             resp.sendRedirect("/login");
         }
+
+
     }
 }

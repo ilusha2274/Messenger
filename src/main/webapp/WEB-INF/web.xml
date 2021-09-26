@@ -31,6 +31,7 @@
     <url-pattern>/settings</url-pattern>
     <url-pattern>/home</url-pattern>
     <url-pattern>/exit</url-pattern>
+    <url-pattern>/newmessage</url-pattern>
   </filter-mapping>
 
   <listener>
@@ -48,6 +49,7 @@
     <url-pattern>/settings</url-pattern>
     <url-pattern>/home</url-pattern>
     <url-pattern>/exit</url-pattern>
+
   </servlet-mapping>
 
   <servlet>
@@ -57,6 +59,15 @@
   <servlet-mapping>
     <servlet-name>ServletRegistration</servlet-name>
     <url-pattern>/registration</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>NewMessageServlet</servlet-name>
+    <servlet-class>test.web.NewMessageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewMessageServlet</servlet-name>
+    <url-pattern>/newmessage</url-pattern>
   </servlet-mapping>
 
   <servlet>
