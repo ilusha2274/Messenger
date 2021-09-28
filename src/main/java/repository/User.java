@@ -1,7 +1,5 @@
 package repository;
 
-import exception.UserNotFoundException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,23 +34,5 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
-    }
-
-    public List<Chat> getChats() {
-        return chats;
-    }
-
-    public Chat getByNumberChat(int i){
-        return chats.get(i);
-    }
-
-    private void setChats(Chat chat) {
-        chats.add(chat);
-    }
-
-    public void addChat(User user2,String nameChat) {
-        Chat chat = new Chat(nameChat);
-        setChats(chat);
-        user2.setChats(chat);
     }
 }

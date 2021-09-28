@@ -3,6 +3,8 @@ package test.web;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import repository.Chat;
+import repository.ChatRepository;
+import repository.CollectionChatRepository;
 import repository.User;
 
 import javax.servlet.ServletException;
@@ -16,6 +18,7 @@ import java.util.List;
 public class BlockMenuServlet extends HttpServlet{
 
     private TemplateEngine templateEngine;
+    private ChatRepository chatRepository;
     public static final String HOME = "/home";
     public static final String POSTS = "/posts";
     public static final String PROFILE = "/profile";
@@ -27,6 +30,7 @@ public class BlockMenuServlet extends HttpServlet{
     @Override
     public void init() throws ServletException {
         templateEngine = (TemplateEngine) getServletContext().getAttribute("templateEngine");
+        chatRepository = (CollectionChatRepository)getServletContext().getAttribute("collectionChatRepository");
     }
 
     @Override
@@ -47,8 +51,13 @@ public class BlockMenuServlet extends HttpServlet{
             Context context = new Context();
             context.setVariable("posts",true);
             ArrayList<String> chats = new ArrayList<>();
-            for(int i =0;i<user.getChats().size();i++){
-                chats.add(user.getByNumberChat(i).getName());
+            List<Chat> chat = chatRepository.findListChatByUser(user);
+            for(int i =0;i<chat.size();i++){
+                if (user == chat.get(i).getUser1()){
+                    chats.add(chat.get(i).getUser2().getName());
+                }else {
+                    chats.add(chat.get(i).getUser1().getName());
+                }
             }
             context.setVariable("nameChat",chats);
 

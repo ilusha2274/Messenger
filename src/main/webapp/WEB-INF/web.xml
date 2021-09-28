@@ -26,7 +26,7 @@
 
   <filter-mapping>
     <filter-name>AuthorizedUserFilter</filter-name>
-    <url-pattern>/posts</url-pattern>
+    <url-pattern>/posts/*</url-pattern>
     <url-pattern>/profile</url-pattern>
     <url-pattern>/settings</url-pattern>
     <url-pattern>/home</url-pattern>
@@ -44,7 +44,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>BlockMenuServlet</servlet-name>
-    <url-pattern>/posts</url-pattern>
+    <url-pattern>/posts/*</url-pattern>
     <url-pattern>/profile</url-pattern>
     <url-pattern>/settings</url-pattern>
     <url-pattern>/home</url-pattern>

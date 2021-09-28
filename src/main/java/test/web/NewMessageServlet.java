@@ -2,9 +2,7 @@ package test.web;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-import repository.CollectionUserRepository;
-import repository.User;
-import repository.UserRepository;
+import repository.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +13,7 @@ import java.io.IOException;
 public class NewMessageServlet extends HttpServlet {
 
     private UserRepository userRepository;
+    private ChatRepository chatRepository;
     private TemplateEngine templateEngine;
 
 
@@ -22,6 +21,7 @@ public class NewMessageServlet extends HttpServlet {
     public void init() throws ServletException {
         userRepository = (CollectionUserRepository) getServletContext().getAttribute("collectionUserRepository");
         templateEngine = (TemplateEngine) getServletContext().getAttribute("templateEngine");
+        chatRepository = (CollectionChatRepository)getServletContext().getAttribute("collectionChatRepository");
 
     }
 
@@ -37,12 +37,11 @@ public class NewMessageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
-        String nameChat = req.getParameter("nameChat");
 
         User user = (User) req.getSession().getAttribute("user");
 
         if (userRepository.findUserByEmail(email)!= null){
-            user.addChat(userRepository.findUserByEmail(email),nameChat);
+            chatRepository.addChat(user,userRepository.findUserByEmail(email));
             resp.sendRedirect("/posts");
         }else {
             Context context = new Context();

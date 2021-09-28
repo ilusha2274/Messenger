@@ -3,6 +3,7 @@ package test.web;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import repository.CollectionChatRepository;
 import repository.CollectionUserRepository;
 import repository.User;
 import repository.UserRepository;
@@ -22,6 +23,9 @@ public class ContextListener implements javax.servlet.ServletContextListener {
 
         CollectionUserRepository collectionUserRepository = new CollectionUserRepository();
         servletContext.setAttribute("collectionUserRepository", collectionUserRepository);
+
+        CollectionChatRepository collectionChatRepository = new CollectionChatRepository();
+        servletContext.setAttribute("collectionChatRepository", collectionChatRepository);
     }
 
     private TemplateEngine createTemplateEngine(ServletContext servletContext){
