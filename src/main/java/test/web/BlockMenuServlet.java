@@ -2,10 +2,7 @@ package test.web;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-import repository.Chat;
-import repository.ChatRepository;
-import repository.CollectionChatRepository;
-import repository.User;
+import repository.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -50,16 +47,19 @@ public class BlockMenuServlet extends HttpServlet{
         if (POSTS.equals(contextPath)){
             Context context = new Context();
             context.setVariable("posts",true);
-            ArrayList<String> chats = new ArrayList<>();
+            ArrayList<PrintMessage> printMessages = new ArrayList<>();
             List<Chat> chat = chatRepository.findListChatByUser(user);
             for(int i =0;i<chat.size();i++){
+                PrintMessage printMessage = new PrintMessage();
                 if (user == chat.get(i).getUser1()){
-                    chats.add(chat.get(i).getUser2().getName());
+                    printMessage.setNameChat(chat.get(i).getUser2().getName());
                 }else {
-                    chats.add(chat.get(i).getUser1().getName());
+                    printMessage.setNameChat(chat.get(i).getUser1().getName());
                 }
+                printMessage.setIdChat(i);
+                printMessages.add(printMessage);
             }
-            context.setVariable("nameChat",chats);
+            context.setVariable("printMessage",printMessages);
 
             context.setVariable("title",user.getName());
 

@@ -40,9 +40,9 @@ public class Chat {
         this.name = name;
     }
 
-    public void addMessage (String text){
-        Message message = new Message(text);
-        messages.add(message);
+    public void addMessage (Chat chat,User user, String message){
+        Message message1 = new Message(user,message);
+        messages.add(message1);
     }
 }
 
