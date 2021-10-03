@@ -33,7 +33,6 @@ public class ChatServlet extends HttpServlet {
         ArrayList<PrintPost> printPosts = printChats(user);
         ArrayList<PrintMessage> printMessages = printMessages(chatRepository.getByNumberChat(id),req);
 
-        System.out.println(id);
         webContext.setVariable("printMessages",printMessages);
 
         webContext.setVariable("printPosts",printPosts);
@@ -50,7 +49,7 @@ public class ChatServlet extends HttpServlet {
         String contextPath = req.getRequestURI();
         int id = findIdChat(contextPath,resp);
         chatRepository.getByNumberChat(id).addMessage(user,message);
-        resp.sendRedirect("/posts");
+        resp.sendRedirect("/chat/" + id);
     }
 
     private ArrayList<PrintPost> printChats (User user){
