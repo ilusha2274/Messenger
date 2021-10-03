@@ -32,6 +32,7 @@
     <url-pattern>/home</url-pattern>
     <url-pattern>/exit</url-pattern>
     <url-pattern>/newmessage</url-pattern>
+    <url-pattern>/chat/*</url-pattern>
   </filter-mapping>
 
   <listener>
@@ -59,6 +60,15 @@
   <servlet-mapping>
     <servlet-name>ServletRegistration</servlet-name>
     <url-pattern>/registration</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ChatServlet</servlet-name>
+    <servlet-class>test.web.ChatServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChatServlet</servlet-name>
+    <url-pattern>/chat/*</url-pattern>
   </servlet-mapping>
 
   <servlet>

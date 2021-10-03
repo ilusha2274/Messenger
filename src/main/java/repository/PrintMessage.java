@@ -1,20 +1,25 @@
 package repository;
 
 public class PrintMessage {
-    public String nameChat;
-    public int idChat;
+    boolean author;
+    String message;
 
-    public String getNameChat() {
-        return nameChat;
-    }
-    public void setNameChat(String nameChat) {
-        this.nameChat = nameChat;
+    public PrintMessage(boolean author, String message) {
+        this.author = author;
+        this.message = message;
     }
 
-    public int getIdChat() {
-        return idChat;
+    public boolean isAuthor() {
+        return author;
     }
-    public void setIdChat(int idChat) {
-        this.idChat = idChat;
+    public void setAuthor(boolean author) {
+        this.author = author;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

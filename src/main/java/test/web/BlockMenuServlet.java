@@ -2,6 +2,7 @@ package test.web;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
+import org.thymeleaf.context.WebContext;
 import repository.*;
 
 import javax.servlet.ServletException;
@@ -21,7 +22,6 @@ public class BlockMenuServlet extends HttpServlet{
     public static final String PROFILE = "/profile";
     public static final String SETTINGS = "/settings";
     public static final String EXIT = "/exit";
-    public static final String NEWMESSAGE = "/newmessage";
 
 
     @Override
@@ -35,60 +35,92 @@ public class BlockMenuServlet extends HttpServlet{
 
         String contextPath = req.getRequestURI();
         User user = (User) req.getSession().getAttribute("user");
+        Context context = new Context();
+        WebContext webContext = new WebContext(req,resp,getServletContext());
 
-        if (HOME.equals(contextPath)){
-            Context context = new Context();
+        switch (contextPath){
+            case ("/home"):
+                context.setVariable("title",user.getName());
 
-            context.setVariable("title",user.getName());
+                templateEngine.process("home",context, resp.getWriter());
+                break;
+            case ("/posts"):
+                webContext.setVariable("posts",true);
+                ArrayList<PrintPost> printPosts = printChats(user);
 
-            templateEngine.process("home",context, resp.getWriter());
+                webContext.setVariable("printPosts",printPosts);
+
+                webContext.setVariable("title",user.getName());
+
+                templateEngine.process("posts",webContext, resp.getWriter());
+                break;
+            case ("/profile"):
+                context.setVariable("profile",true);
+
+                context.setVariable("title",user.getName());
+
+                templateEngine.process("profile",context, resp.getWriter());
+                break;
+            case ("/settings"):
+                context.setVariable("settings",true);
+
+                context.setVariable("title",user.getName());
+
+                templateEngine.process("settings",context, resp.getWriter());
+                break;
+            case ("/exit"):
+                req.getSession().invalidate();
+                resp.sendRedirect("/login");
+                break;
+            default:
+                break;
+
         }
+    }
 
-        if (POSTS.equals(contextPath)){
-            Context context = new Context();
-            context.setVariable("posts",true);
-            ArrayList<PrintMessage> printMessages = new ArrayList<>();
-            List<Chat> chat = chatRepository.findListChatByUser(user);
-            for(int i =0;i<chat.size();i++){
-                PrintMessage printMessage = new PrintMessage();
-                if (user == chat.get(i).getUser1()){
-                    printMessage.setNameChat(chat.get(i).getUser2().getName());
-                }else {
-                    printMessage.setNameChat(chat.get(i).getUser1().getName());
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String message = req.getParameter("message");
+        User user = (User) req.getSession().getAttribute("user");
+        String contextPath = req.getRequestURI();
+        int id = findIdChat(contextPath,resp);
+        chatRepository.getByNumberChat(id).addMessage(user,message);
+    }
+
+    private int findIdChat (String contextPath, HttpServletResponse resp) throws IOException {
+        char[] contextPathChar = contextPath.toCharArray();
+        int check = 0;
+        StringBuilder chatId = new StringBuilder();
+        for (char c : contextPathChar) {
+            if (check < 2) {
+                if (c == '/') {
+                    check++;
                 }
-                printMessage.setIdChat(i);
-                printMessages.add(printMessage);
+            } else {
+                chatId.append(c);
             }
-            context.setVariable("printMessage",printMessages);
-
-            context.setVariable("title",user.getName());
-
-            templateEngine.process("posts",context, resp.getWriter());
         }
-
-        if (PROFILE.equals(contextPath)){
-            Context context = new Context();
-            context.setVariable("profile",true);
-
-            context.setVariable("title",user.getName());
-
-            templateEngine.process("profile",context, resp.getWriter());
+        try {
+            check = Integer.parseInt(chatId.toString());
+        }catch (NumberFormatException e){
+            resp.sendRedirect("/posts");
         }
+        return check;
+    }
 
-        if (SETTINGS.equals(contextPath)){
-            Context context = new Context();
-            context.setVariable("settings",true);
-
-            context.setVariable("title",user.getName());
-
-            templateEngine.process("settings",context, resp.getWriter());
+    private ArrayList<PrintPost> printChats (User user){
+        ArrayList<PrintPost> printPosts = new ArrayList<>();
+        List<Chat> chat = chatRepository.findListChatByUser(user);
+        for(int i =0;i<chat.size();i++){
+            PrintPost printPost = new PrintPost();
+            if (user == chat.get(i).getUser1()){
+                printPost.setNameChat(chat.get(i).getUser2().getName());
+            }else {
+                printPost.setNameChat(chat.get(i).getUser1().getName());
+            }
+            printPost.setIdChat(i);
+            printPosts.add(printPost);
         }
-
-        if (EXIT.equals(contextPath)){
-            req.getSession().invalidate();
-            resp.sendRedirect("/login");
-        }
-
-
+        return printPosts;
     }
 }

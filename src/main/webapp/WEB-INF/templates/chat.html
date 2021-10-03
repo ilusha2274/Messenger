@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Messenger</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <colorMenu th:insert="blocks/colorMenu :: colorMenu"></colorMenu>
+</head>
+
+<body style = "background-color: #1e1d2f">
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2">
+            <blockMenu th:insert="blocks/blockMenu :: blockMenu"></blockMenu>
+        </div>
+
+        <!-- Users box-->
+        <div class="col-lg-3" style="background-color: #17212b">
+
+            <div class="chat-search-box">
+                <div class="input-group">
+                    <input class="form-control" placeholder="Search">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-info">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <tr th:each="printPost : ${printPosts}">
+                <td th:insert="blocks/blockChat :: blockChat"></td>
+            </tr>
+        </div>
+
+        <!-- Chat Box-->
+        <div class="col-lg-7 mh-100"  style="background-color: #ffffff">
+            <div class="px-4 py-5 chat-box bg-white">
+
+                <tr th:each="printMessage : ${printMessages}">
+                    <div th:switch="${printMessage.author}">
+                        <td th:case=" 'true' "  th:insert="blocks/blockReceiverMessage :: blockReceiverMessage"></td>
+                        <td th:case=" 'false' "  th:insert="blocks/blockSenderMessage :: blockSenderMessage"></td>
+                    </div>
+                    <td th:insert="blocks/blockChat :: blockChat"></td>
+                </tr>
+
+                <!-- Sender Message-->
+                <div class="media w-50 mb-3">
+                    <div class="media-body ml-3">
+                        <div class="bg-light rounded py-2 px-3 mb-2">
+                            <p class="text-small mb-0 text-muted">Test which is a new approach all solutions</p>
+                        </div>
+                        <p class="small text-muted">12:00 PM | Aug 13</p>
+                    </div>
+                </div>
+
+                <!-- Receiver Message-->
+                <div class="media w-50 ml-auto mb-3">
+                    <div class="media-body">
+                        <div class="bg-primary rounded py-2 px-3 mb-2">
+                            <p class="text-small mb-0 text-white text-right">Test which is a new approach to have all solutions</p>
+                        </div>
+                        <p class="small text-muted">12:00 PM | Aug 13</p>
+                    </div>
+                </div>
+
+                <!-- Typing area -->
+                <form method="post" class="bg-light">
+                    <div class="input-group">
+                        <input type="text" name="message" placeholder="Type a message" aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light">
+                        <div class="input-group-append">
+                            <button id="button-addon2" type="submit" class="btn btn-link"> <i class="fa fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

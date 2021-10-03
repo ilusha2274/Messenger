@@ -24,7 +24,7 @@ public class CollectionChatRepository implements ChatRepository{
 
     @Override
     public Chat getByNumberChat(int i) {
-        return null;
+        return chats.get(i);
     }
 
     @Override

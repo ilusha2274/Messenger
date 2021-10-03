@@ -8,7 +8,7 @@ public class Chat {
     private User user1;
     private User user2;
     private int chatId = 0;
-    private String name;
+    //private String name;
 
     public Chat(User user1, User user2) {
         this.user1 = user1;
@@ -33,16 +33,20 @@ public class Chat {
         return messages;
     }
 
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
+    //public String getName() {
+    //    return name;
+    //}
+    //public void setName(String name) {
+    //    this.name = name;
+    //}
 
-    public void addMessage (Chat chat,User user, String message){
+    public void addMessage (User user, String message){
         Message message1 = new Message(user,message);
         messages.add(message1);
+    }
+
+    public Message getMessageByNumber (int i){
+        return messages.get(i);
     }
 }
 
