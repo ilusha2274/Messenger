@@ -7,7 +7,12 @@
     <colorMenu th:insert="blocks/colorMenu :: colorMenu"></colorMenu>
 </head>
 <body style = "background-color: #1e1d2f">
-<blockMenu th:insert="blocks/blockMenu :: blockMenu"></blockMenu>>
-<h1>Настройки</h1>>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2 gy-3">
+            <blockMenu th:insert="blocks/blockMenu :: blockMenu"></blockMenu>
+        </div>
+    </div>
+</div>
 </body>
 </html>
