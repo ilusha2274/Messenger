@@ -78,36 +78,6 @@ public class BlockMenuServlet extends HttpServlet{
         }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String message = req.getParameter("message");
-        User user = (User) req.getSession().getAttribute("user");
-        String contextPath = req.getRequestURI();
-        int id = findIdChat(contextPath,resp);
-        chatRepository.getByNumberChat(id).addMessage(user,message);
-    }
-
-    private int findIdChat (String contextPath, HttpServletResponse resp) throws IOException {
-        char[] contextPathChar = contextPath.toCharArray();
-        int check = 0;
-        StringBuilder chatId = new StringBuilder();
-        for (char c : contextPathChar) {
-            if (check < 2) {
-                if (c == '/') {
-                    check++;
-                }
-            } else {
-                chatId.append(c);
-            }
-        }
-        try {
-            check = Integer.parseInt(chatId.toString());
-        }catch (NumberFormatException e){
-            resp.sendRedirect("/posts");
-        }
-        return check;
-    }
-
     private ArrayList<PrintPost> printChats (User user){
         ArrayList<PrintPost> printPosts = new ArrayList<>();
         List<Chat> chat = chatRepository.findListChatByUser(user);
@@ -115,10 +85,11 @@ public class BlockMenuServlet extends HttpServlet{
             PrintPost printPost = new PrintPost();
             if (user == chat.get(i).getUser1()){
                 printPost.setNameChat(chat.get(i).getUser2().getName());
+                printPost.setIdChat(chat.get(i).getChatId());
             }else {
                 printPost.setNameChat(chat.get(i).getUser1().getName());
+                printPost.setIdChat(chat.get(i).getChatId());
             }
-            printPost.setIdChat(i);
             printPosts.add(printPost);
         }
         return printPosts;

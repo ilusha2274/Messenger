@@ -10,9 +10,10 @@ public class Chat {
     private int chatId = 0;
     //private String name;
 
-    public Chat(User user1, User user2) {
+    public Chat(User user1, User user2,int chatId) {
         this.user1 = user1;
         this.user2 = user2;
+        this.chatId = chatId;
     }
 
     public User getUser1() {
@@ -27,6 +28,10 @@ public class Chat {
     }
     public void setUser2(User user2) {
         this.user2 = user2;
+    }
+
+    public int getChatId() {
+        return chatId;
     }
 
     public List<Message> getMessages() {

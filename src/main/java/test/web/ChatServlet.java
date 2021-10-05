@@ -59,10 +59,11 @@ public class ChatServlet extends HttpServlet {
             PrintPost printPost = new PrintPost();
             if (user == chat.get(i).getUser1()){
                 printPost.setNameChat(chat.get(i).getUser2().getName());
+                printPost.setIdChat(chat.get(i).getChatId());
             }else {
                 printPost.setNameChat(chat.get(i).getUser1().getName());
+                printPost.setIdChat(chat.get(i).getChatId());
             }
-            printPost.setIdChat(i);
             printPosts.add(printPost);
         }
         return printPosts;

@@ -8,18 +8,16 @@ import java.util.Map;
 public class CollectionChatRepository implements ChatRepository{
 
     private List<Chat> chats = new ArrayList<>();
-    private Map<User, Chat> usersByChat = new HashMap<>();
+    private Map<User, List<Chat>> usersByChat = new HashMap<>();
+    private int chatId =0;
 
     @Override
     public List<Chat> findListChatByUser(User user) {
-        List<Chat> chatsUser = new ArrayList<>();
-        for (int i =0;i<chats.size();i++){
-            Chat chat = chats.get(i);
-            if (chat.getUser1() == user || chat.getUser2() == user){
-                chatsUser.add(chat);
-            }
+        if (usersByChat.get(user) == null){
+            List<Chat> chats = new ArrayList<>();
+            return chats;
         }
-        return chatsUser;
+        return usersByChat.get(user);
     }
 
     @Override
@@ -29,10 +27,48 @@ public class CollectionChatRepository implements ChatRepository{
 
     @Override
     public Chat addChat(User user1, User user2) {
-        Chat chat = new Chat(user1, user2);
+        Chat chat = new Chat(user1, user2,chatId);
         chats.add(chat);
-        usersByChat.put(user1,chat);
-        usersByChat.put(user2,chat);
+        if (user1 == user2){
+            addChatForOne(user1,chat);
+        }else {
+            addChatForTwo(user1,user2,chat);
+        }
+        chatId++;
         return chat;
+    }
+
+    private void addChatForTwo (User user1, User user2, Chat chat){
+        if (usersByChat.get(user1) == null){
+            List<Chat> chats1 = new ArrayList<>();
+            chats1.add(chat);
+            usersByChat.put(user1,chats1);
+        }else {
+            List<Chat> chats1 = usersByChat.get(user1);
+            chats1.add(chat);
+            usersByChat.put(user1,chats1);
+        }
+
+        if (usersByChat.get(user2) == null){
+            List<Chat> chats2 = new ArrayList<>();
+            chats2.add(chat);
+            usersByChat.put(user2,chats2);
+        }else {
+            List<Chat> chats2 = usersByChat.get(user2);
+            chats2.add(chat);
+            usersByChat.put(user2,chats2);
+        }
+    }
+
+    private void addChatForOne (User user1, Chat chat){
+        if (usersByChat.get(user1) == null){
+            List<Chat> chats1 = new ArrayList<>();
+            chats1.add(chat);
+            usersByChat.put(user1,chats1);
+        }else {
+            List<Chat> chats1 = usersByChat.get(user1);
+            chats1.add(chat);
+            usersByChat.put(user1,chats1);
+        }
     }
 }
